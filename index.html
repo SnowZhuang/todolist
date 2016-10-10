@@ -1,23 +1,76 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<title>TODO LIST</title>
 		<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+		<style type="text/css" media="screen">
+			.todo{
+				padding: 5px;
+				background-color: #fff;
+				margin-bottom: 2px;
+			}
+			.container-background{
+				background-image: url('./image/05.jpg')
+			}
+			.todoContent{
+				padding-left: 10px;
+
+			}
+		</style>
 	</head>
-	<body class="container">
+	<body class="container container-background" >
+		
+		<div id="content1"></div>
+		<div id="content2"></div>
+
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="form-group">
-					<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email">
+					<input type="text" class="form-control" id="todoInput" placeholder="Email" onkeyup="addTODO(event)">
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-12">
-			
+				<ul id="todos">
+					
+				</ul>
 			</div>
 		</div>
 	</body>
-	<script src="./bower_component/jquery/disrt/jquery.js" type="text/javascript" charset="utf-8" async defer></script>
+	<script src="./bower_components/jquery/dist/jquery.js" type="text/javascript" charset="utf-8" async defer></script>
+	<script type="text/javascript" charset="utf-8">
+	/**
+	 * 新增列表
+	 * @param {[type]} event [description]
+	 */
+	function addTODO(event){
+		var template = "";
+		if (event.keyCode == 13 && $("#todoInput").val().trim()) {
+			var todoContent = $("#todoInput").val();
+			var template = createTemplate(todoContent);
+			$("#todos").append(template);
+			$("#todoInput").val("");
+		}
+	}
+
+	/**
+	 * 创建模板
+	 * @param  {[type]} content [description]
+	 * @return {[type]}         [description]
+	 */
+	var createTemplate = function(content){
+		var li  = $("<li>");
+		li.addClass("list-unstyled");
+		li.addClass("todo");
+		li.append('<input type="checkbox" onclick="completeTask(event)">');
+		li.append('<span class="todoContent">'+content+'</span>');
+		li.append('<span class="glyphicon glyphicon-star-empty pull-right"></span>')
+		return li;
+	}
+
+	var completeTask = function(event){
+		$(event.target).parent().remove();
+	}
+	</script>
 </html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<title>TODO LIST</title>
+		<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+		<style type="text/css" media="screen">
+			.todo{
+				padding: 5px;
+				background-color: #fff;
+				margin-bottom: 2px;
+			}
+			.container-background{
+				background-image: url('./image/05.jpg')
+			}
+			.todoContent{
+				padding-left: 10px;
+			}
+		</style>
+		<script src="./bower_components/jquery/dist/jquery.js" type="text/javascript" charset="utf-8" ></script>
+	<script src="./bower_components/angular/angular.js" type="text/javascript" charset="utf-8" ></script>
+	<script type="text/javascript" charset="utf-8">
+			angular
+			.module("ToDoModule",[])
+			.controller("ToDoController",function($scope){
+					$scope.todos = [];
+					$scope.addTodo = function($event){
+						if ($event.keyCode == 13 && $scope.todoInput.trim()) {
+							$scope.todos.push($scope.todoInput);
+							$scope.todoInput = "";
+						}
+					}
+					$scope.complete = function($index){
+						$scope.todos.splice($index,1)
+					}
+			});
+		
+		//angular.bootstrap(document,ToDoModule);
+	</script>
+	</head>
+	<body class="container container-background" ng-app="ToDoModule" ng-controller="ToDoController">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group">
+					<input type="text" ng-model="todoInput" class="form-control" id="todoInput" placeholder="Email" ng-keyup="addTodo($event)">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<ul id="todos">
+					<li class="list-unstyled todo" ng-repeat="item in todos track by $index"><input type="checkbox" ng-click="complete($index)"><span class="todoContent">{{item}}</span><span class="glyphicon glyphicon-star-empty pull-right"></span></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	
+</html>
