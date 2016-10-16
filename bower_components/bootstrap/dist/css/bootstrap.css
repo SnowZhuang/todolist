@@ -5242,8 +5242,10 @@ a.thumbnail.active {
   list-style: none;
 }
 .list-group {
-  padding-left: 0;
-  margin-bottom: 20px;
+	padding-left: 0;
+	margin-bottom: 20px;
+	font-weight: bold;
+	font-size: 9px;
 }
 .list-group-item {
   position: relative;
